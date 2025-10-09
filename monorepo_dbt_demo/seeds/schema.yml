@@ -1,0 +1,8 @@
+version: 2
+
+seeds:
+  - name: JL_product_class_map
+    config:
+      column_types:
+        col_1: varchar(2)
+        col2: float

@@ -1,0 +1,8 @@
+monorepo_dbt_demo:
+  target: dev
+  outputs:
+    dev:
+      type: duckdb
+      threads: 1
+      path: ':memory:'
+      schema: main

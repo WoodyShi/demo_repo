@@ -1,0 +1,6 @@
+
+version: 2
+
+models:
+  - name: rd_sales_summary
+  - name: rd_product_summary

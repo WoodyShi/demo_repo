@@ -1,0 +1,29 @@
+version: 2
+
+models:
+  - name: AX__address_country_region
+    description: "This table contains country and region information."
+    columns:
+      - name: COUNTRYREGIONID
+        description: "The unique identifier for the country or region."
+        tests:
+          - not_null
+          - unique
+      - name: NAME
+        description: "The name of the country or region."
+      - name: CURRENCYCODE
+        description: "The currency code associated with the country or region."
+      - name: ISOCODE
+        description: "The ISO code for the country or region."
+      - name: CREATEDDATETIME
+        description: "The date and time when the record was created."
+      - name: MODIFIEDDATETIME
+        description: "The date and time when the record was last modified."
+  - name: AX__cust_invoice_trans
+  - name: AX__cust_table
+  - name: AX__empl_table
+  - name: AX__invent_dim
+  - name: AX__invent_table
+  - name: AX__sales_table
+  - name: AX__tec_marketcode
+  - name: AX__tec_product_classify

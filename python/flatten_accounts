@@ -1,0 +1,19 @@
+import pandas as pd
+
+df = pd.read_csv('python\data\data.csv', header=None)
+
+# create a list to store flattened data
+flattened = []
+
+for _, row in df.iterrows():
+    key = row.iloc[0]
+    values = []
+    for cell in row.iloc[1:]:
+        if pd.notna(cell):
+            values.extend(v.strip() for v in str(cell).split(';') if v.strip()) # convert to string to avoid issues with non-string types
+        for v in values:
+            flattened.append({'Key': key, 'Value': v})
+
+flat_df = pd.DataFrame(flattened)
+
+flat_df.to_csv('flattened_data.csv', index=False)
