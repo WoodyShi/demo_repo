@@ -1,0 +1,19 @@
+
+
+with source_data as (
+    select
+        *
+    from "ax"."ax"."TEC_MARKETCODE" 
+),
+renamed as (
+select 
+    TEC_MARKETCODE_id as TEC_MARKETCODE_id,
+    MARKETCODEID as brand_marketcode,
+    region as region,
+    name as brandname
+from source_data
+)
+
+select 
+    *
+from renamed
