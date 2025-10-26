@@ -2,5 +2,14 @@
 version: 2
 
 models:
-  - name: rd_sales_summary
+  - name: SQL_model_example
+    description: 'this is a example model using SQL'
+    columns:
+      - name: column1
+        description: 'this is a column'
+        data_tests:
+          - unique
+          - not_null
+          - is_even
+
   - name: rd_product_summary

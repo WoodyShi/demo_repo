@@ -3,4 +3,9 @@ version: 2
 
 models:
   - name: stg_address_country_region
+    columns:
+      - name: vendor_country
+        data_tests:
+          - unique
+          - not_null
     
