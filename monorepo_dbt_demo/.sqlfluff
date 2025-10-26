@@ -1,0 +1,9 @@
+[sqlfluff]
+dialect = databricks           
+templater = jinja
+exclude_rules = L031,L034     
+max_line_length = 120
+
+[sqlfluff:templater:dbt]
+project_dir = .
+profiles_dir = ~/.dbt         

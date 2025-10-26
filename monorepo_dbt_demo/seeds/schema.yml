@@ -1,7 +1,12 @@
 version: 2
 
 seeds:
-  - name: JL_product_class_map
+  - name: JL__product_class_map
+    config:
+      column_types:
+        col_1: varchar(2)
+        col2: float
+  - name: Material__rd_material_portal
     config:
       column_types:
         col_1: varchar(2)

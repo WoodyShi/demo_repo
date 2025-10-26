@@ -10,7 +10,9 @@ with address_region as (
 ),
 address_region as (
 select 
-    name as vendor_country
+    {{ dbt_utils.generate_surrogate_key(['field_a', 'field_b']) }} as uuid,
+    name as vendor_country,
+    trim(itemid) as itemid
 from source_data
 )
 

@@ -1,6 +1,6 @@
 -- funcsign: (list[hook], optional[bool]) -> string
 {% macro run_hooks(hooks, inside_transaction=True) %}
-  {% for hook in hooks | selectattr('transaction', 'equalto', inside_transaction)  %}
+    {% for hook in hooks | selectattr('transaction', 'equalto', inside_transaction) %}
     {% if not inside_transaction and loop.first %}
       {% call statement(auto_begin=inside_transaction) %}
         commit;

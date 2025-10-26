@@ -6,7 +6,7 @@
       --  > dropped without also dropping the dependent object.
   #}
 
-  {%- call statement('relations', fetch_result=True) -%}
+    {%- call statement('relations', fetch_result=True) -%}
     with relation as (
         select
             pg_rewrite.ev_class as class,
@@ -70,11 +70,11 @@
     group by referenced_schema, referenced_name, dependent_schema, dependent_name
     order by referenced_schema, referenced_name, dependent_schema, dependent_name;
 
-  {%- endcall -%}
+    {%- endcall -%}
 
-  {{ return(load_result('relations').table) }}
+    {{ return(load_result('relations').table) }}
 {% endmacro %}
 
 {% macro postgres_get_relations() %}
-  {{ return(postgres__get_relations()) }}
+    {{ return(postgres__get_relations()) }}
 {% endmacro %}
