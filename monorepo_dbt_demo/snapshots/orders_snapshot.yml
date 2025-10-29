@@ -1,0 +1,15 @@
+snapshots:
+  - name: example_snapshot
+    relation: source('AX', 'CUSTINVOICETRANS')
+    description:  'this is a example for snapshots'
+    config:
+      database: example_db
+      schema: example_schema
+      alias:  'CUSTINVOICETRANS_snapshot'
+      strategy: timestamp #| check
+      unique_key: rec_id
+      check_cols: all
+      updated_at: modification_ts
+      snapshot_meta_column_names: dictionary
+      dbt_valid_to_current: string
+      hard_deletes: new_record # ignore | invalidate | 
