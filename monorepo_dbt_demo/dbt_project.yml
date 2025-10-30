@@ -31,3 +31,9 @@ clean-targets:         # directories to be removed by `dbt clean`
 models:
   monorepo_dbt_demo:
     # Config indicated by + and applies to all files under models/example/
+    ## see docs: https://docs.elementary-data.com/
+  elementary:
+    ## elementary models will be created in the schema '<your_schema>_elementary'
+    +schema: "elementary"
+    ## To disable elementary for dev, uncomment this:
+    # enabled: "{{ target.name in ['prod','analytics'] }}"

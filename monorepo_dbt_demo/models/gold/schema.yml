@@ -12,4 +12,12 @@ models:
           - not_null
           - is_even
 
-  - name: rd_product_summary
+  - name: python_model_example
+    description: 'this is a example model using python'
+    columns:
+      - name: column1
+        description: 'this is a column'
+        data_tests:
+          - unique
+          - not_null
+          - is_even

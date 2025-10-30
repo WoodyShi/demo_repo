@@ -1,9 +1,10 @@
 import pyspark.sql.functions as F
+from python_helpers.helper import helper_function
 
 
 def model(dbt, session):
     dbt.config(materialized = "incremental")
-    df = dbt.ref("upstream_table")
+    df = dbt.ref("Portal__product_component")
 
     if dbt.is_incremental:
 
@@ -17,5 +18,7 @@ def model(dbt, session):
     '''
     other transformation code here
     '''
+    df = df.withColumn("helper_used", F.lit(helper_function()))
+        
 
     return df
