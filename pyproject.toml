@@ -10,6 +10,7 @@ dependencies = [
     "dbt-postgres>=1.9.1",
     "dbt-sqlite>=1.10.0",
     "pandas>=2.3.3",
+    "pyspark>=4.0.1",
     "ruff>=0.14.1",
     "sqlfluff>=3.5.0",
 ]
