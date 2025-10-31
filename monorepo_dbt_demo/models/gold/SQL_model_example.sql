@@ -1,7 +1,7 @@
 {{ config(
     materialized='table',
     schema='gold',
-    tags=['sales', 'finance']
+    tags=['tag1', 'tag2']
 ) }}
 
 

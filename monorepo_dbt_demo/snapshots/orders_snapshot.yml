@@ -1,15 +1,20 @@
 snapshots:
   - name: example_snapshot
-    relation: source('AX', 'CUSTINVOICETRANS')
+    relation: ref('AX__cust_invoice_trans')
     description:  'this is a example for snapshots'
     config:
       database: example_db
       schema: example_schema
       alias:  'CUSTINVOICETRANS_snapshot'
-      strategy: timestamp #| check
+      strategy: timestamp
       unique_key: rec_id
-      check_cols: all
+      # check_cols: all
       updated_at: modification_ts
-      snapshot_meta_column_names: dictionary
+      snapshot_meta_column_names:
+        dbt_valid_from: <string>
+        dbt_valid_to: <string>
+        dbt_scd_id: <string>
+        dbt_updated_at: <string>
+        dbt_is_deleted: <string>
       dbt_valid_to_current: string
-      hard_deletes: new_record # ignore | invalidate | 
+      hard_deletes: new_record
