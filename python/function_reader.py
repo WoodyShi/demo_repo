@@ -1,7 +1,7 @@
 import pandas as pd
-import re
+# import re
 
-df = pd.read_csv('python\data\data_2.csv', header=None, encoding='utf-8')
+df = pd.read_csv('python/data/data_2.csv', header=None, encoding='utf-8')
 
 results = []
 
@@ -11,4 +11,4 @@ for _, row in df.iterrows():
 
     for col in df.columns:
         if col.startswith('值'):
-            value_dict[col] = 
+            value_dict[col] = ''
