@@ -37,7 +37,7 @@ jobs:
       - name: Run sqlfluff lint
         run: |
           cd monorepo_dbt_demo
-          uv run sqlfluff lint models/ --dialect <your_dialect>
+          uv run sqlfluff lint models/ --dialect snowflake --config ../.sqlfluff
 
       # --- dbt checks (requires warehouse connection) ---
 
@@ -64,7 +64,7 @@ jobs:
           cd monorepo_dbt_demo
           dbt build --select state:modified+ --defer --state prod-state
         env:
-          DBT_TARGET: ci                  # Use a separate CI target/schema in profiles.yml
+          DBT_TARGET: dev
 
       - name: Run full dbt build (no prior artifacts)
         if: hashFiles('monorepo_dbt_demo/prod-state/manifest.json') == ''
@@ -72,4 +72,4 @@ jobs:
           cd monorepo_dbt_demo
           dbt build
         env:
-          DBT_TARGET: ci
+          DBT_TARGET: dev
