@@ -38,7 +38,7 @@ jobs:
       - name: Run sqlfluff lint
         run: |
           cd monorepo_dbt_demo
-          uv run sqlfluff lint models/ --dialect <your_dialect>
+          uv run sqlfluff lint models/ --dialect snowflake --config ../.sqlfluff
 
       # --- dbt deployment ---
 
