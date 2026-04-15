@@ -1,0 +1,82 @@
+name: dbt Deploy
+
+on:
+  push:
+    branches:
+      - main
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+
+      - name: Set up Python environment
+        run: uv sync
+
+      - name: Add venv to PATH
+        run: echo "${{ github.workspace }}/.venv/bin" >> $GITHUB_PATH
+
+      # --- Code quality (re-run on merge commit as a safety gate) ---
+
+      - name: Run ruff lint
+        run: uv run ruff check .
+
+      - name: Run ruff format check
+        run: uv run ruff format --check .
+
+      - name: Run sqlfluff lint
+        run: |
+          cd monorepo_dbt_demo
+          uv run sqlfluff lint models/ --dialect <your_dialect>
+
+      # --- dbt deployment ---
+
+      - name: Install dbt packages
+        run: |
+          cd monorepo_dbt_demo
+          dbt deps
+
+      - name: Download latest prod dbt artifacts
+        uses: actions/download-artifact@v4
+        continue-on-error: true           # Graceful fallback for very first deploy
+        with:
+          name: dbt-prod-artifacts
+          path: monorepo_dbt_demo/prod-state
+
+      - name: Run dbt build with deferred state
+        if: hashFiles('monorepo_dbt_demo/prod-state/manifest.json') != ''
+        run: |
+          cd monorepo_dbt_demo
+          dbt build --select state:modified+ --defer --state prod-state
+        env:
+          DBT_TARGET: prod
+
+      - name: Run full dbt build (no prior artifacts)
+        if: hashFiles('monorepo_dbt_emo/prod-state/manifest.json') == ''
+        run: |
+          cd monorepo_dbt_demo
+          dbt build
+        env:
+          DBT_TARGET: prod
+
+      # --- Store fresh artifacts ONLY after a successful build ---
+
+      - name: Upload prod dbt artifacts
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: dbt-prod-artifacts
+          path: monorepo_dbt_demo/target
+          retention-days: 30
+          overwrite: true                 # Always keep latest prod artifact
