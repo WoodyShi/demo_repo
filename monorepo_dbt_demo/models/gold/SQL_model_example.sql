@@ -34,13 +34,13 @@ dim_tec_market_codes as (
 )
 
 select
-    a.*,
-    b.invoiceid,
-    c.accountnum,
-    d.name as salesperson,
-    e.inventlocationid,
-    f.currencycode,
-    g.vendor_country
+    invent_table.*,
+    customer_invoice_transaction.invoiceid,
+    customers.accountnum,
+    employees.name as salesperson,
+    dim_inventories.inventlocationid,
+    sales.currencycode,
+    dim_tec_market_codes.vendor_country
 from invent_table
 left join customer_invoice_transaction
     on invent_table.key = customer_invoice_transaction.key

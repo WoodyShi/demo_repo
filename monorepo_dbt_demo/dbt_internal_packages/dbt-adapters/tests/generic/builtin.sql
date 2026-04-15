@@ -7,24 +7,24 @@
 #} */
 
 {% test unique(model, column_name) %}
-    {% set macro = adapter.dispatch('test_unique', 'dbt') %}
-    {{ macro(model, column_name) }}
+{% set macro = adapter.dispatch('test_unique', 'dbt') %}
+{{ macro(model, column_name) }}
 {% endtest %}
 
 
 {% test not_null(model, column_name) %}
-    {% set macro = adapter.dispatch('test_not_null', 'dbt') %}
-    {{ macro(model, column_name) }}
+{% set macro = adapter.dispatch('test_not_null', 'dbt') %}
+{{ macro(model, column_name) }}
 {% endtest %}
 
 
 {% test accepted_values(model, column_name, values, quote=True) %}
-    {% set macro = adapter.dispatch('test_accepted_values', 'dbt') %}
-    {{ macro(model, column_name, values, quote) }}
+{% set macro = adapter.dispatch('test_accepted_values', 'dbt') %}
+{{ macro(model, column_name, values, quote) }}
 {% endtest %}
 
 
 {% test relationships(model, column_name, to, field) %}
-    {% set macro = adapter.dispatch('test_relationships', 'dbt') %}
-    {{ macro(model, column_name, to, field) }}
+{% set macro = adapter.dispatch('test_relationships', 'dbt') %}
+{{ macro(model, column_name, to, field) }}
 {% endtest %}
