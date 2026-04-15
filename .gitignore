@@ -11,3 +11,5 @@ wheels/
 *.csv
 .DS_Store
 .vscode/
+
+python/data
