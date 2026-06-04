@@ -2,7 +2,33 @@ monorepo_dbt_demo:
   target: dev
   outputs:
     dev:
-      type: duckdb
-      threads: 1
-      path: ':memory:'
-      schema: main
+      type: snowflake
+      
+      account: myorg-myaccount
+      # use env_var to avoid hardcoding credentials in this file
+      user:    "{{ env_var('DBT_SF_USER') }}"
+      # use sso for authentication to avoid hardcoding credentials in this file
+      authenticator: externalbrowser
+      client_session_keep_alive: true   # avoid repeated browser prompts in one run
+
+      warehouse: dev_warehouse
+      database:  dev_db
+      schema:    dbt_dev
+      role:      developer_role
+      threads:   4
+
+    prod:
+      type: snowflake
+      
+      account: myorg-myaccount
+      # use env_var to avoid hardcoding credentials in this file
+      user: svc_dbt  # service account, not a human
+      # private_key_path: "{{ env_var('DBT_SF_PRIVATE_KEY_PATH') }}"        # path to the .p8 file on the runner
+      # private_key_passphrase: "{{ env_var('DBT_SF_PRIVATE_KEY_PASSPHRASE') }}"  # if key is encrypted
+      warehouse: prod_warehouse
+      database:  prod_db
+      schema:    dbt_prod
+      role:      transformer_role
+      threads:   8
+
+    
